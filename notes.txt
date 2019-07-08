@@ -1,0 +1,245 @@
+1.在同一个包中，可以直接调用，使用go来调用同工程下的函数。
+2.time.Sleep(time.Second) sleep一秒。
+3.比如输出100个数，并不是串行的1 2 3 4 5 6 7。
+4.make申请一块空间。语法：pipe:=make(chan int,3)第二个参数为容量（数量）。如果数量大于第二个参数，会进行阻塞状态。pipe<-1,将1放入管道。变量在左边，管道在右进行取出t1=<-pipe。管道相当于队列，先进先出。
+5.变量大写表示其他包可以使用，小写无法使用。
+6.组织目录：project/src 存放代码 bin中存放可执行文件 vender第三方包 pkg静态库。
+7.import给包取别名。a go_dev/day2/example/add。
+8.包的初始化但是不引用，import - "add"。
+9.常量使用 const identifier [type]=value,type可以省略。常用写法，const(a=iota b c)每个往后递加1。
+10. 在函数的返回值列表中可以声明变量的名称。
+11.可变参数 func add(a int ,arg...int) int{}。
+12.defer用途，当函数返回时，执行defer语句。因此，可以用来做资源清理。多个defer语句，按先进后出的方式执行。defer语句中的变量，在defer声明时就决定了。
+13.defer用来资源释放。func read(){mc.Lock() defermc.Unlock()}，防止忘记释放锁。我理解的是最后
+14.string的用法：
+    strings.HasPrefix(s string,prefix string)bool,判断字符串s是否以prefix开头。
+    strings.HasSuffix(s string,suffix string)bool,判断字符串是否以suffix结尾
+    strings.Index(s string,str string)int ,判断str在s中首次出现的位置，如果没有出现，则返回-1
+    strings.LastIndex(s string,str string)int,判断str在s中最后出现的位置，如果没有出现，则返回-1.
+    strings.Replace(str string,old string,new string,n int)字符串替换
+    strings.Count(str string.substr string)int字符串计数
+    strings.Repeat(str string ,count int)string重复count次str
+    strings.ToLower(str string)string转为小写
+    strings.ToUpper(str string)string转为大写
+    strings.TrimSpace(str string)去掉字符串首尾空白字符
+    strings.Trim(str string,cut string)去掉字符串守卫cut字符
+    strings.TrimLeft(str string ,cut string)去掉字符串首cut
+    strings.TrimRight(str string,cut string)去掉字符串尾cut字符
+    strings.Field(str string)返回str空格分割的所有子串的slice
+    strings.Split(str string,split string)烦恼会str split分隔的所有子串的slice
+    strings.Join(s1 []string,sep string)用sep把s1中的所有元素连接起来
+    strings.Itoa(i int)把一个整数i转成字符串
+    strings.Atoi(str string)(int ,error)把一个字符串转成整数
+15.time包的使用:
+    time.Time类型用来表示时间
+    获取当前时间:now:=ttime.Now()
+    time.Now.Day(),time.Now().Minute(),time.Now().Month(),time.Now().Year()
+    格式化 fmt.Printf("%02d%02d")
+    time.Duration用来表示纳秒
+16.goto label,注意label后面加:
+17.golang函数的特点：
+    不支持重载，一个包不能含有名字一样的函数
+    函数可以赋值给变量
+    匿名函数
+    多返回值
+18.内置函数:
+    close:用来关闭channel
+    len:用来求长度，比如string,array,slice,map,channel
+    new:用来分配内存，主要用来分配值类型，比如int,struct，返回的是指针
+    make:用来分配内存，主要用来分配引用类型，比如chan,map,slice
+    append:用来追加元素到数组，slice中
+    panic和recover：用来做错误处理
+19.闭包
+    func Adder() func(int) int{
+    var x int
+    return func(delta int)int {
+	x+=delta
+    }
+}
+20.数组的概念：
+    定义：var a [len],比如var a [5]int
+    长度是数组类型的一部分，因此，var a[5] int和var a[10] int是不同的类型
+    越界会出现panic
+21.常用定义方法：
+    var age1=[5]int{1,2,3,4,5}
+    var age2=[...]int{1,2,3,4,5}
+    二维数组：
+    var f [2][3] int=[...][3]{{1,2,3,},{7,8,9da}}
+22.切片：
+    切片是数组的一个引用，因此切片是引用类型
+    切片是一个可变的数组
+    cap可以求出slice最大的容量，0<=cap(slice)<=len(array)，其中array是slice引用的数组
+    切片的定义，var 变量名[]类型，比如var str []string var arr []int
+23.make创建切片：
+    var slice []type=make([]type,len)
+    slice:=make([]type,len)
+    slice:=make([]type,len,cap)
+24.通过append函数操作切片
+    slice=append(slice,10)
+
+    var a=[]int {1,2,3}
+    var b=[]int {4,5,6}
+    a=append(a,b...)
+25.遍历切片：
+    for index,val:=range slice{}
+26.切片resize:
+    var a=[]int {1,3,4,5}
+    b:=a[1:2]
+    b=b[0:3]
+27.copy_example:
+    s1:=[]int{1,2,3,4,5}
+    s2:=make([]int,10)
+    copy(s2,s1)
+    s3:=[]int(1,2,3)
+    s3=append(s3,s2...)
+    s3=append(s3,4,5,6)
+28.排序和查找：
+    在sort包中
+    sort.Int对整数进行排序
+    sort.Strings对字符串进行排序
+    sort.Float64s对浮点数进行排序
+    sort.SearchInts(a []int,b int)从数组a中查找b，前提a必须有序
+    sort.SearchFloats(a []float64,b float64)从数组a中查找b，前提是a必须有序
+    sort.SearchStrings(a []string,b string)从数组a中查找b，前提是a必须有序
+29.map的相关操作：
+    var a map[string]string=map[string]string{"hello","world"}
+    a=make(map[string]string,10)
+    a["hello"]="world"插入和更新
+    Val,ok:=a["helllo"]查找
+    for k,v:=range a{遍历
+	fmt.Println(k,v)
+    }
+    delete(a,"hello")删除
+    len(a)长度
+30.map也是引用类型：
+    func modify(a map[string]int){
+	a["one"]=134
+    }
+31.排序：
+    先获取所有的key，把key进行排序
+    按照排序好的key,进行遍历
+32.线程同步：
+    import("sync")
+    互斥锁:var mu sync.Mutex
+    读写锁:var mu sync.RWmutex
+33.go语言没有class类型，只有struct类型
+    type Student struct{
+	Name string
+	Age int
+	Score int
+    定义的三种形式:
+	var stu Student
+	var stu *Student=new (Student)
+	var stu *Student=&Student[]
+    }
+34.使用工厂模式解决struct中的没有构造函数的问题:
+    Package model
+    type student strcut{
+	Name string
+	Age int
+    }
+    func NewStudent(name string,age int) *student{
+	return & student{
+	    Name:name,
+	    Age:age,
+	}
+    }
+
+    Pack age main
+    S:=new(student)
+    s:=model.NewStudent("tony",20)
+35.make用来创建map,slice,channel,new用来创建值类型
+36.struct中的匿名字段：
+    type Car struct{
+	Name string
+	Age int
+    }
+    type Train struct{
+	Car
+	int
+    }
+37.结构体方法的调用：
+    type A struct {
+	a int
+    }
+    func(this A)test(){
+	fmt.Println(this.a)
+    }
+    var t A
+    t.test()
+38.结构体嵌套一个匿名结构体，称为继承，嵌套有名的结构体，那么这个模式就叫做组合。
+39.接口的定义使用interface类型，但是其中只能有方法，不能有字段。
+40.接口的使用：
+    type example interface{
+	Method1(参数列表)返回值列表
+	Method2(参数列表)返回值列表
+    }
+    var a example
+    a.Method1()
+41.Golang中的接口，不需要显示的实现，只需要一个变量，含有接口类中中的所有方法，那么这个变量就实现了这个接口。因此，golang中诶呦implement类似的关键字.
+42.接口嵌套：
+    type ReadWrite interface{
+	Read(b Buffer)bool
+	Write(b Buffer)bool
+    }
+    type Lock interface{
+	Lock()
+	Unlock()
+    }
+    type File interface{
+	ReadWrite
+	Lock
+	Close
+    }
+43.反射：
+    import("reflect")
+    reflect.TypeOf,获取变量的类型，返回reflect.Type类型
+    reflect.ValueOf,获取变量的值，返回reflect.Value类型
+    reflect.Value.Kind,获取变量的类别，返回一个常量
+    reflect.Value.Interface(),转换成interface{}类型
+
+    通过反射来改变变量的值：
+	reflect.Value.SetXX相关方法，比如：
+	reflect.Value.SetFloat(),设置浮点数
+	reflect.Value.SetInt(),设置整数
+	reflect.Value.SetString(),设置字符串
+
+    通过反射操作结构体：
+	reflect.Value.NumField()获取结构体字段中的个数
+	reflect.Value.Method(n).Call来调用结构体中的方法
+44.终端读写：
+    os.Stdin标准输入
+    os.Stdout标准输出
+    os.Stderr标准错误输出
+45.文件读写：
+    打开文件进行读操作：os.Open(name string)(*File,error)
+    关闭文件：File.Close()
+    文件写入：os.OpenFile("output.dat",os.O_WRONLY|os.O_CREATE,0666)
+
+    os.O_WRONLY只写
+    os.O_CREATE创建文件
+    os.O_RDONLY只读
+    os.O_RDWR读写
+    os.O_TRUNC清空
+
+    权限控制：
+    r->004 w->002 x->001
+46.os.Agrs是一个string的切片，用来存储所有的命令行参数
+47.flag包
+    flag.BoolVar(&test,"b",false,"print on newline")
+    flag.StringVar(&str,"s","","print on newline")
+    flag.IntVar(&count,"c",1001,"print on newline")
+48.Jason数据协议：
+    Golang序列化->json字符串网络传输->程序反序列化->其他语言
+    导入包：import "encoding/json"
+    序列化:json.Marshal(data interface)
+    反序列化:json.UnMarshal(data []byte,v interface)
+49.进程和线程：
+    进程是程序在操作系统中的一次执行过程，系统进行资源分配和调度的一个独立单位。
+    线程是进程的一个执行实体，是CPU调度和分派的基本单位，它是比进程更小的能独立运行的基本单位。
+    一个进程可以创建和撤销多个线程，同一个进程中的多个线程之间可以并发执行。
+50.并发和并行：
+    多线程程序在一个核的cpu上运行，就是并发
+    多线程程序在多个核的cpu上运行，就是并行
+51.协程和线程：
+    协程：独立的栈空间，共享堆空间，调度由用户自己控制，本质上有点类似于用户级线程，这些用户线程的调度也是自己实现的。
