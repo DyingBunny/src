@@ -1,0 +1,8 @@
+/*.txt
+/*.pdf
+/*.pprof
+/dist/
+/.idea/
+/test/path
+/golangci-lint
+/tools/
