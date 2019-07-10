@@ -1,7 +1,0 @@
-0eac4d39863bc0a8911f7565cc20ca53aa000fb4		branch 'appveyor' of https://github.com/hashicorp/hcl
-1804807358d86424faacbb42f50f0c04303cef11		branch 'decode-string-booleans' of https://github.com/hashicorp/hcl
-ad677ce7f100647c5cb12860ca55e852a5d9e2f7		branch 'jbardin/json-failures' of https://github.com/hashicorp/hcl
-cf7d376da96d9cecec7c7483cec2735efe54a410		branch 'master' of https://github.com/hashicorp/hcl
-80d4ce26e65725398147241b2d1797886dc6b5d6		branch 'missing-trailing-brace' of https://github.com/hashicorp/hcl
-4f9442e99f13c69fb7b59b84eaaad4293e2c5335		branch 'sethvargo/keys' of https://github.com/hashicorp/hcl
-5592d2526badd60c172ffa95c6a3b209bea9d1ee		tag 'v1.0.0' of https://github.com/hashicorp/hcl
