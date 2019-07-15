@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	db, err := gorm.Open("mysql", "root:123456@/king?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "root:123456@/?charset=utf8&parseTime=True&loc=Local")
 	defer db.Close()
 	if err != nil {
 		log.Fatal("Connect error:", err)

@@ -7,7 +7,7 @@ import (
 )
 
 func GetJokes() {
-	doc, err := goquery.NewDocument("http://www.qiushibaike.com")
+	doc, err := goquery.NewDocument("https://www.3dmgame.com/")
 	if err != nil {
 		log.Fatal(err)
 	}
